@@ -41,6 +41,9 @@ bool UnsortedType::IsFull() const {
 int UnsortedType::LengthIs() const {
     return length;
 }
+/* Ejercicio 4: Sustituir los ComparedTo con las Sobrecargas del ejercicio 3:
+
+Así es el viejo RetrieveItem:
 
 void UnsortedType::RetrieveItem(ItemType& item, bool& found) {
     // Pre: Key member(s) of item is initialized.
@@ -67,12 +70,31 @@ void UnsortedType::RetrieveItem(ItemType& item, bool& found) {
         }
     }
 }
+*/
+
+// Y así es el nuevo:
+void UnsortedType::RetrieveItem(ItemType& item, bool& found) {
+    int location = 0;
+    found = false;
+
+    while (location < length && !found) { // al ser una lista desordenada, quitamos el switch y usamos un simple if-else
+        if (item == info[location]) {
+            found = true;
+            item = info[location];
+        } else {
+            location++;
+        }
+    }
+}
+
 
 void UnsortedType::InsertItem(ItemType item) { // Sabemos que el array info guarda consecutivamente los elementos
     // Post: item is in the list.              // porque según el código de InsertItem, el nuevo dato se mete en la primera casilla disponble,
     info[length] = item;                       // siendo esta la de la posición lenght, de forma que nunca deja huecos vaciós de por medio.
     length++;                        // Además, seguramente la lista esté desordenada ya que no hace comprobaciones con los datos ya metidos cuando entra uno nuevo,
 }                                    // y abajo, en DeleteItem, cuando se borra un elemento, los datos restantes no se mueven de lugar, dejando un hueco vacío
+
+/* Así es el viejo DeletemItem
 
 void UnsortedType::DeleteItem(ItemType item) {
     // Pre:  item's key has been initialized.
@@ -85,6 +107,16 @@ void UnsortedType::DeleteItem(ItemType item) {
     info[location] = info[length - 1];
     length--;
 }
+*/
+
+// Y ssí es el nuevo:
+void UnsortedType::DeleteItem(ItemType item) {
+    int location = 0;
+    while (item != info[location] ) // Se compsra directamente usando !=
+        location++;
+
+    info[location] = info[length - 1];
+    length--;
 
 void UnsortedType::ResetList() {
     // Post: currentPos has been initialized.
@@ -149,3 +181,23 @@ bool IsThere(UnsortedType lista, ItemType& item){ // Creamos un iterador "lista"
 
 // respecto a la eficiencia es más de lo mismo, la primera al ser directa es más eficiente que la segunda al requerir menos llamadas
 // para obtener los datos necesarios de los metodos privados
+
+// Así sería el nuevo IsThere del ejercicio 1, sin sobrecargas:
+
+/*
+void UnsortedType::IsThere(ItemType& item) {
+    bool encontrado = false;
+    int location = 0;
+
+    while (location < lenght && encontrado == false) {
+        if (item == info[location]) {
+            encontrado = true;
+            // break;   no sé si es necesario, por eso lo dejo como comentario
+        } else {
+            location++
+        }
+    }
+    return encontrado;
+}
+// En el ejercicio 2, sería el mismo cambio que aquí
+*/
