@@ -138,7 +138,7 @@ bool UnsortedType::IsThere(ItemType& item) const {  // Aquí se determinará si 
     bool encontrado = false; // este booleano indicará si al final hubo uno con la misma clave o no
     int location = 0; // el int se usará para moverse por el array info
 
-    while (location < length && encontrado == false) { // usamos un bucle donde mientras que la posición actual sea menor al tamaño del array, Y aún no se haya encontrado algo...
+    while (location < length && encontrado == false) { // usamos un bucle while mientras que la posición actual sea menor al tamaño del array, Y aún no se haya encontrado algo...
         if (item.ComparedTo(info[location]) == EQUAL) { //usamos el ComparedTo para comparar cada elemento item con la posicion del array, hasta encontrar alguno que tenga la misma clave, si es que hay
             encontrado = true; // si se encuentra algo, cambiamos el booleano a True, para salir del bucle
             // break;   no sé si es necesario, por eso lo dejo como comentario
