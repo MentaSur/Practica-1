@@ -183,10 +183,40 @@ void MergeLists(SortedType list1, SortedType list2, SortedType& result){
 
     while (clave_procesada2 <= longitud_lista2) { // en caso de que la lista 2 no esté acabada
         result.InsertItem(item2);
-        
+
         if (clave_procesada2 < longitud_lista2) {// se comprueba si se procesaron todos ya o no
             list2.GetNextItem(item2); // si no, pasamos al siguiente item a introducir
         }
         clave_procesada2++;
+    }
+}
+
+
+// Ejercicio 6: hacer una función que separe una lista en 2 listas, una con las claves igual o menores a "item" y otra con claves mayores a "item"
+
+void SplitLists(SortedType list, ItemType item, SortedType& list1, SortedType& list2){
+    ItemType itemActual; // declaramos el item que usaremos para guardar la clave que se use en el momento
+
+    int longitud = list.LengthIs(); //longitud de la lista base
+    list.ResetList();
+    bool limiteSuperado = false;
+
+    //con un bucle "for", iremos viendo 1 por 1 cada clave de la lista para separarlas en 2 según su valor respecto al del "item" fijo
+    for (int i = 0; i < longitud; i++) {
+        list.GetNextItem(itemActual); // sacamos de la lista el itemActual, lo guardamos y pasa al siguiente para guardar LUEGO, no ahora
+         //como sabemos que la lista está ordenada, podemos poner un booleano que sea True SÓLO si las claves que se estén usando ya son mayores al "item" fijo
+        if (limiteSuperado == false) { //si es false, aún estamos por debajo o igual que el "item" fijo, por lo que las claves se guardan en la LISTA-1
+            RelationType comparacion = itemActual.ComparedTo(item); //se compara el item guardado con el "item" fijo
+            
+            if (comparacion == LESS || comparacion == EQUAL) {
+                list1.InsertItem(itemActual); // Si es menor o igual al "item" fijo, se guarda el itemActual guardado en la LISTA-1
+
+            } else { //en el caso de que sea mayor, se guarda en la LISTA-2 y se cambia el booleano a True (es decir, ya estamos con claves por encima del "item" fijo)
+                list2.InsertItem(itemActual);
+                limiteSuperado = true;
+            }
+        } else { //si es true, estamos por encima del "item" fijo, las claves se guardan en la LISTA-2
+            list2.InsertItem(itemActual);
+        }
     }
 }
