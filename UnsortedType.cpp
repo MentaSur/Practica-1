@@ -117,6 +117,7 @@ void UnsortedType::DeleteItem(ItemType item) {
 
     info[location] = info[length - 1];
     length--;
+}
 
 void UnsortedType::ResetList() {
     // Post: currentPos has been initialized.
@@ -133,16 +134,16 @@ void UnsortedType::GetNextItem(ItemType& item) {
 //
 // Ejercicio 1: Extender la Clase UnsortedType creando un IsThere y buscar si hay o no, un elemento ItemType con la misma clave en la lista ya.
 //
-void UnsortedType::IsThere(ItemType& item) {  // Aquí se determinará si ya existe o no, un elemento con la misma clave en la lista
+bool UnsortedType::IsThere(ItemType& item) const {  // Aquí se determinará si ya existe o no, un elemento con la misma clave en la lista
     bool encontrado = false; // este booleano indicará si al final hubo uno con la misma clave o no
     int location = 0; // el int se usará para moverse por el array info
 
-    while (location < lenght && encontrado == false) { // usamos un bucle donde mientras que la posición actual sea menor al tamaño del array, Y aún no se haya encontrado algo...
+    while (location < length && encontrado == false) { // usamos un bucle donde mientras que la posición actual sea menor al tamaño del array, Y aún no se haya encontrado algo...
         if (item.ComparedTo(info[location]) == EQUAL) { //usamos el ComparedTo para comparar cada elemento item con la posicion del array, hasta encontrar alguno que tenga la misma clave, si es que hay
             encontrado = true; // si se encuentra algo, cambiamos el booleano a True, para salir del bucle
             // break;   no sé si es necesario, por eso lo dejo como comentario
         } else { // si no se encuentra nada, avanzamos en el array
-            location++
+            location++;
         }
     }
     return encontrado;  // indicamos que sí se encontro una clave igual
@@ -155,7 +156,7 @@ void UnsortedType::IsThere(ItemType& item) {  // Aquí se determinará si ya exi
 // ahora debemos usar los públicos como (LenghtIs, ResetList, GetNextItem)
 //
 bool IsThere(UnsortedType lista, ItemType& item){ // Creamos un iterador "lista" que nos ayude a acceder a los métodos públicos de la clase UnsortedType
-    int tamaño = lista.LenghtIs(); //pilla el valor del lenght del array
+    int tamaño = lista.LengthIs(); //pilla el valor del lenght del array
     ItemType item_actual; //indica el item actual que se comprobará
     bool encontrado = false; //se encontró parecido o no
     int position = 0; //auxiliar para el bucle
